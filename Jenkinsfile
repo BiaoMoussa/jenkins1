@@ -13,11 +13,12 @@ pipeline {
     stages {
         stage('Build'){
             steps {
-                echo 'NAME : ${NAME}'
-                echo 'DESCRIPTION : ${DESCRIPTION}'
-                echo 'MARRIED : ${MARRIED}'
-                echo 'CITY : ${CITY}'
-                echo 'PASSWORD : ${PASSWORD}'
+                
+                echo "NAME : ${NAME}"
+                echo "DESCRIPTION : ${DESCRIPTION}"
+                echo "MARRIED : ${MARRIED}"
+                echo "CITY : ${CITY}"
+                echo "PASSWORD : ${PASSWORD}"
             }
         }
     }
