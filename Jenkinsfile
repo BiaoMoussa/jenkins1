@@ -1,7 +1,7 @@
-pipline {
+pipeline {
     agent any
 
-    // Paramètres de la pipeline
+    
     parameters {
         string(name:'NAME', defaultValue:'Biao', description:'Enter your name')
         text(name:'DESCRIPTION', defaultValue:'My Name', description:'Enter a description')
