@@ -14,6 +14,8 @@ pipeline {
         pollSCM('* * * * *')
     }
 
+    
+
     stages {
         stage('Build'){
             steps {
@@ -28,6 +30,13 @@ pipeline {
             }
         }
         stage('Production') {
+            when {
+                allOf {
+                    branch 'main'
+                    environment name: 'DEPLOY_TO', value: 'production'
+                }
+            }
+
             input {
                 message "Do you want to deploy to production ?"
                 ok "Deploy"
