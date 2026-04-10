@@ -1,10 +1,10 @@
 pipeline {
     agent any
 
-    parameters {
-        booleanParam(name:'DEPLOY_TO', defaultValue:false, description:'Deploy to production environment')
-        string(name: 'VERSION', defaultValue: '1.0.0', description: 'Enter the version to deploy')
-    }
+    // parameters {
+    //     booleanParam(name:'DEPLOY_TO', defaultValue:true, description:'Deploy to production environment')
+    //     string(name: 'VERSION', defaultValue: '1.0.0', description: 'Enter the version to deploy')
+    // }
 
 
 
@@ -25,7 +25,7 @@ pipeline {
     
 
     stages {
-        stage('Build'){
+        stage('Build Frontend'){
             steps {
                 
                 // echo "NAME : ${NAME}"
@@ -34,16 +34,16 @@ pipeline {
                 // echo "CITY : ${CITY}"
                 // echo "PASSWORD : ${PASSWORD}"
 
-                echo "Building the project..."
+                echo "Building the frontend..."
             }
         }
-        stage('Production') {
-            when {
-                allOf {
-                    branch 'main'
-                    equals expected: 'production', actual: params.DEPLOY_TO
-                }
-            }
+        stage('Build Backend'){ {
+            // when {
+            //     allOf {
+            //         branch 'main'
+            //         equals expected: 'production', actual: params.DEPLOY_TO
+            //     }
+            // }
 
             input {
                 message "Do you want to deploy to production ?"
@@ -53,9 +53,10 @@ pipeline {
             }
             steps {
                 echo "User ${USER_SUBMIT} approved the deployment."
-                echo "${VERSION} Deploying to production..."
+                // echo "${VERSION} Deploying to production..."
             }
         }
     }
      
+}
 }
