@@ -25,8 +25,11 @@ pipeline {
     
 
     stages {
-        stage('Build Frontend'){
-            steps {
+        stage('Build App') {
+            failFast true
+            parallel{
+                stage('Build Frontend'){
+                    steps {
                 
                 // echo "NAME : ${NAME}"
                 // echo "DESCRIPTION : ${DESCRIPTION}"
@@ -35,9 +38,18 @@ pipeline {
                 // echo "PASSWORD : ${PASSWORD}"
 
                 echo "Building the frontend..."
+                    }
+                }
+                stage('Build Backend'){
+                    steps {
+                        echo "Building the backend..."
+                    }
+                }
             }
         }
-        stage('Build Backend'){ {
+
+       
+        stage('Go to production'){ {
             // when {
             //     allOf {
             //         branch 'main'
