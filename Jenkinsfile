@@ -27,6 +27,22 @@ pipeline {
                 echo "Building the project..."
             }
         }
+        stage('Production') {
+            input {
+                message "Do you want to deploy to production ?"
+                ok "Deploy"
+                submitter "admin,devops"
+                submitterParameter "USER_SUBMIT"
+                parameters {
+                    string(name: 'VERSION', defaultValue: 'latest', description: 'Enter the version to deploy')
+                }
+
+            }
+            steps {
+                echo "User ${USER_SUBMIT} approved the deployment."
+                echo "${VERSION} Deploying to production..."
+            }
+        }
     }
      
 }
