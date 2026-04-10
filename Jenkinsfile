@@ -41,7 +41,7 @@ pipeline {
             when {
                 allOf {
                     branch 'main'
-                    equlals expected: 'production', actual: params.DEPLOY_TO
+                    equals expected: 'production', actual: params.DEPLOY_TO
                 }
             }
 
