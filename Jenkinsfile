@@ -1,9 +1,14 @@
 pipeline {
     agent any
 
-    environment {
-        DEPLOY_TO = 'production'
+    parameters {
+        booleanParam(name:'DEPLOY_TO', defaultValue:false, description:'Deploy to production environment')
+        string(name: 'VERSION', defaultValue: '1.0.0', description: 'Enter the version to deploy')
     }
+
+
+
+
     
     // parameters {
     //     string(name:'NAME', defaultValue:'Biao', description:'Enter your name')
@@ -36,7 +41,7 @@ pipeline {
             when {
                 allOf {
                     branch 'main'
-                    environment name: 'DEPLOY_TO', value: 'production'
+                    equlals expected: 'production', actual: params.DEPLOY_TO
                 }
             }
 
@@ -44,11 +49,7 @@ pipeline {
                 message "Do you want to deploy to production ?"
                 ok "Deploy"
                 submitter "admin,devops"
-                submitterParameter "USER_SUBMIT"
-                parameters {
-                    string(name: 'VERSION', defaultValue: 'latest', description: 'Enter the version to deploy')
-                }
-
+                submitterParameter "USER_SUBMIT" 
             }
             steps {
                 echo "User ${USER_SUBMIT} approved the deployment."
