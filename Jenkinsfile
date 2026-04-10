@@ -49,7 +49,7 @@ pipeline {
         }
 
        
-        stage('Go to production'){ {
+        stage('Go to production'){ 
             // when {
             //     allOf {
             //         branch 'main'
@@ -70,5 +70,4 @@ pipeline {
         }
     }
      
-}
 }
