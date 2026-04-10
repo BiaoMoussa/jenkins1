@@ -1,6 +1,9 @@
 pipeline {
     agent any
 
+    environment {
+        DEPLOY_TO = 'production'
+    }
     
     // parameters {
     //     string(name:'NAME', defaultValue:'Biao', description:'Enter your name')
