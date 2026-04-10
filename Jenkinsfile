@@ -48,6 +48,35 @@ pipeline {
             }
         }
 
+        stage('Testing') {
+            matrix {
+                axes {
+                    axis {
+                        name 'PLATEFORM'
+                        values 'Windows', 'Linux', 'MacOS'
+                    }
+                    axis {
+                        name 'BROWSER'
+                        values 'Chrome', 'Firefox', 'Safari'
+                    }
+                }
+
+                stages {
+                    stage('Run Platform test') {
+                        steps {
+                            echo "Running tests on ${PLATEFORM} ..."
+                        }
+                    }
+
+                    stage('Run Browser test') {
+                        steps {
+                            echo "Running tests on browser  ${BROWSER}..."
+                        }
+                    }
+                }
+            }
+        }
+
        
         stage('Go to production'){ 
             // when {
