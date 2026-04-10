@@ -43,6 +43,8 @@ pipeline {
                 stage('Build Backend'){
                     steps {
                         echo "Building the backend..."
+                        sh "echo Building the backend... > build.log"
+                        archiveArtifacts(artifacts: 'build.log')
                     }
                 }
             }
