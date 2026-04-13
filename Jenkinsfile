@@ -22,9 +22,19 @@ pipeline {
         pollSCM('* * * * *')
     }
 
+    tools {
+        gradle 'Gradle9.5.0'
+    }
     
 
     stages {
+    
+        stage('Show gradle version') {
+            steps {
+                sh 'gradle --version'
+            }
+        }
+
         stage('Build App') {
             failFast true
             parallel{
@@ -50,34 +60,34 @@ pipeline {
             }
         }
 
-        stage('Testing') {
-            matrix {
-                axes {
-                    axis {
-                        name 'PLATEFORM'
-                        values 'Windows', 'Linux', 'MacOS'
-                    }
-                    axis {
-                        name 'BROWSER'
-                        values 'Chrome', 'Firefox', 'Safari'
-                    }
-                }
+        // stage('Testing') {
+        //     matrix {
+        //         axes {
+        //             axis {
+        //                 name 'PLATEFORM'
+        //                 values 'Windows', 'Linux', 'MacOS'
+        //             }
+        //             axis {
+        //                 name 'BROWSER'
+        //                 values 'Chrome', 'Firefox', 'Safari'
+        //             }
+        //         }
 
-                stages {
-                    stage('Run Platform test') {
-                        steps {
-                            echo "Running tests on ${PLATEFORM} ..."
-                        }
-                    }
+        //         stages {
+        //             stage('Run Platform test') {
+        //                 steps {
+        //                     echo "Running tests on ${PLATEFORM} ..."
+        //                 }
+        //             }
 
-                    stage('Run Browser test') {
-                        steps {
-                            echo "Running tests on browser  ${BROWSER}..."
-                        }
-                    }
-                }
-            }
-        }
+        //             stage('Run Browser test') {
+        //                 steps {
+        //                     echo "Running tests on browser  ${BROWSER}..."
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
        
         stage('Go to production'){ 
