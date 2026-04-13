@@ -23,7 +23,7 @@ pipeline {
     }
 
     tools {
-        gradle 'Gradle9.5.0'
+        gradle 'gardle9.5.0'
     }
     
 
