@@ -2,11 +2,23 @@ services:
   jenkins:
     image: jenkins/jenkins
     container_name: jenkins
+    privileged: true
     ports:
       - "8080:8080"
       - "50000:50000"
     volumes:
-      - jenkins_home:/var/jenkins_home
+      - /Users/macbookpro/Documents/Learning/Dyma/Jenkins/jenkins_home:/var/jenkins_home
+      - /Users/macbookpro/Documents/Learning/Dyma/Jenkins/docker.sock:/var/run/docker.sock
     restart: on-failure
-volumes:
-  jenkins_home:
+  agent1:
+    image: jenkins/ssh-agent
+    container_name: agent1
+    privileged: true
+    user: root
+    expose:
+      - 22
+    environment:
+      - JENKINS_AGENT_SSH_PUBKEY=ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMppRJdkKAnaI8RU9s1OjoVTZI1KCe7M2EFzQE5UydtQ macbookpro@MacBook-Pro-de-Biao.local
+    volumes:
+      - /Users/macbookpro/Documents/Learning/Dyma/Jenkins/agent1_home:/var/jenkins_home
+    restart: on-failure
